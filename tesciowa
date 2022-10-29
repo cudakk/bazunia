@@ -1,0 +1,7 @@
+CREATE TABLE postac(id_postaci int not null auto_increment PRIMARY KEY, nazwa varchar(40), rodzaj enum('wiking', 'ptak', 'kobieta'), data_ur(date), wiek int unsigned);
+INSERT INTO postac VALUES(0, 'Bjorn', 'wiking', '2002-06-29', 20);
+INSERT INTO postac VALUES(0, 'Drozd', 'ptak', '2001-09-11', 21);
+INSERT INTO postac VALUES(0, 'Tesciowa', 'kobieta', '1934-10-27',87);
+UPDATE postac SET wiek=88 WHERE nazwa = 'Tesciowa';
+CREATE TABLE walizka(id_walizki int not null auto_increment primary key, pojemnosc int unsigned, kolor enum('rozowy', 'czerwony', 'teczowy', 'zolty'),
+id_wlasciciela int not null, FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postaci) on delete cascade);
