@@ -3,5 +3,19 @@ INSERT INTO postac VALUES(0, 'Bjorn', 'wiking', '2002-06-29', 20);
 INSERT INTO postac VALUES(0, 'Drozd', 'ptak', '2001-09-11', 21);
 INSERT INTO postac VALUES(0, 'Tesciowa', 'kobieta', '1934-10-27',87);
 UPDATE postac SET wiek=88 WHERE nazwa = 'Tesciowa';
-CREATE TABLE walizka(id_walizki int not null auto_increment primary key, pojemnosc int unsigned, kolor enum('rozowy', 'czerwony', 'teczowy', 'zolty'),
+
+CREATE TABLE walizka(id_walizki int not null auto_increment PRIMARY KEY, pojemnosc int unsigned, kolor enum('rozowy', 'czerwony', 'teczowy', 'zolty'),
 id_wlasciciela int not null, FOREIGN KEY(id_wlasciciela) REFERENCES postac(id_postaci) on delete cascade);
+ALTER TABLE walizka ALTER COLUMN kolor SET DEFAULT 'rozowy';
+INSERT INTO walizka(id_walizki, pojemnosc, kolor, id_wlasciciela) VALUES(0, 20, teczowy, 1);
+INSERT INTO walizka(id_walizki, pojemnosc, id_wlasciciela) VALUES(0, 10, 3);
+
+CREATE TABLE izba(adres_budynku varchar(40), nazwa_izby varchar(40), metraz int unsigned, wlasciciel int, PRIMARY KEY(adres_budynku, nazwa_izby), FOREIGN KEY(wlasciciel)
+REFERENCES postac(id_postaci) ON DELETE CASCADE);
+ALTER TABLE izba ADD COLUMN kolor_izby varchar(20) AFTER metraz;
+ALTER TABLE izba ALTER COLUMN kolor_izby SET DEFAULT 'czarny';
+INSERT INTO izba VALUES('Szkolna 17', 'Spizarnia', 20, 'bezowy', 1);
+
+CREATE TABLE przetwory(id_przetworu int not null auto_increment PRIMARY KEY, rok_produkcji year, id_wykonawcy int, FOREIGN KEY(id_wykonawcy)
+REFERENCES postac(id_postaci), zawartosc varchar(40), dodatek varchar(40) DEFAULT 'papryczka_chilli', id_konsumenta int, FOREIGN KEY(id_konsumenta)
+REFERENCES postac(id_postaci));     //ustawic rok_produkcji year DEFAULT '1654')
