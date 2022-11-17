@@ -16,6 +16,23 @@ ALTER TABLE izba ADD COLUMN kolor_izby varchar(20) AFTER metraz;
 ALTER TABLE izba ALTER COLUMN kolor_izby SET DEFAULT 'czarny';
 INSERT INTO izba VALUES('Szkolna 17', 'Spizarnia', 20, 'bezowy', 1);
 
-CREATE TABLE przetwory(id_przetworu int not null auto_increment PRIMARY KEY, rok_produkcji year, id_wykonawcy int, FOREIGN KEY(id_wykonawcy)
+CREATE TABLE przetwory(id_przetworu int not null auto_increment PRIMARY KEY, rok_produkcji int, id_wykonawcy int, FOREIGN KEY(id_wykonawcy)
 REFERENCES postac(id_postaci), zawartosc varchar(40), dodatek varchar(40) DEFAULT 'papryczka_chilli', id_konsumenta int, FOREIGN KEY(id_konsumenta)
-REFERENCES postac(id_postaci));     //ustawic rok_produkcji year DEFAULT '1654')
+REFERENCES postac(id_postaci));
+ALTER TABLE przetwory ALTER COLUMN rok_produkcji SET DEFAULT 1654;
+INSERT INTO przetwory(id_przetworu, id_wykonawcy, zawartosc, id_konsumenta) VALUES (0, 1, 'bigos', 3);
+
+INSERT INTO postac VALUES(0, 'Rollo', 'wiking', '1973-02-11', 49); //5x
+INSERT INTO postac VALUES(0, 'Ragnar', 'wiking', '1972-06-06', 50);
+INSERT INTO postac VALUES(0, 'Bran', 'wiking', '1969-01-29', 53);
+INSERT INTO postac VALUES(0, 'Harald', 'wiking', '1963-12-01', 58);
+INSERT INTO postac VALUES(0, 'Crach', 'wiking', '1987-09-21', 45);
+
+CREATE TABLE statek(nazwa_statku varchar(40) PRIMARY KEY, rodzaj_statku enum('drakkar', 'langskip'), data_wodowania date, max_ladownosc int unsigned);
+INSERT INTO statek VALUES('Dzik morski', 'drakkar', '1920-03-27', 500);
+INSERT INTO statek VALUES('Terror Wielkiego Morza', 'langskip', '1925-04-11', 300);
+ALTER TABLE postac ADD COLUMN funkcja varchar(40);
+UPDATE postac SET funkcja = 'kapitan' WHERE id_postaci = 1;
+.//UPDATE postac SET funkcja = 'zalogant' WHERE id_postaci = ?;
+.
+DELETE
