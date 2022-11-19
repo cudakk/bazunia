@@ -1,1 +1,32 @@
+DELETE FROM postac WHERE rodzaj = 'wiking' ORDER BY wiek DESC LIMIT 2;
+ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_2;
+ALTER TABLE postac MODIFY id_postaci INT;
+ALTER TABLE postac DROP PRIMARY KEY;
 
+UPDATE postac SET pesel = 'a1' WHERE id_postaci = 1;
+UPDATE postac SET pesel = 'b2' WHERE id_postaci = 2;
+UPDATE postac SET pesel = 'c3' WHERE id_postaci = 3;
+UPDATE postac SET pesel = 'd4' WHERE id_postaci = 4;
+UPDATE postac SET pesel = 'e5' WHERE id_postaci = 5;
+UPDATE postac SET pesel = 'h8' WHERE id_postaci = 8;
+ALTER TABLE postac ADD PRIMARY KEY(pesel);
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+INSERT INTO postac(id_postaci, nazwa, rodzaj, data_ur, wiek, pesel) VALUES(9, 'Gertruda Nieszczera', 'syrena', '1917-03-10', 105, 'i9');
+
+UPDATE postac SET n_statku = 'Dzik morski' WHERE nazwa LIKE '%a%';
+UPDATE statek SET max_ladownosc = 0.7 * max_ladownosc WHERE data_wodowania BETWEEN '1901-01-01'AND '2000-12-31';
+ALTER TABLE postac ADD CHECK(wiek <= 1000);
+
+INSERT INTO postac(id_postaci, nazwa, rodzaj, wiek, pesel) VALUES(10, 'Loko', 'waz', 800, 'j10');
+CREATE TABLE marynarz SELECT * FROM postac WHERE funkcja != 'brak';
+//dodac klucze glowne i obce
+
+UPDATE marynarz SET n_statku = 'NULL';
+DELETE FROM marynarz WHERE id_postaci = 8;
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+TRUNCATE statek;
+DROP TABLE statek;
+CREATE TABLE zwierz(id_zwierz INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(40), wiek INT);
+INSERT INTO zwierz(nazwa, wiek) SELECT nazwa, wiek FROM postac WHERE rodzaj = 'ptak' OR rodzaj = 'waz';
