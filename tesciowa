@@ -40,4 +40,6 @@ ALTER TABLE postac ADD COLUMN n_statku varchar(40) AFTER wiek;
 ALTER TABLE postac ADD FOREIGN KEY(n_statku) REFERENCES statek(nazwa_statku);
 UPDATE postac SET n_statku = 'Dzik morski' WHERE id_postaci BETWEEN 1 AND 2 OR id_postaci BETWEEN 4 AND 5;
 UPDATE postac SET n_statku = 'Terror Wielkiego Morza' WHERE id_postaci BETWEEN 6 AND 8;
-DELETE
+
+DELETE FROM izba WHERE nazwa_izby = 'Spizarnia';
+DROP TABLE izba;
