@@ -32,7 +32,12 @@ CREATE TABLE statek(nazwa_statku varchar(40) PRIMARY KEY, rodzaj_statku enum('dr
 INSERT INTO statek VALUES('Dzik morski', 'drakkar', '1920-03-27', 500);
 INSERT INTO statek VALUES('Terror Wielkiego Morza', 'langskip', '1925-04-11', 300);
 ALTER TABLE postac ADD COLUMN funkcja varchar(40);
+ALTER TABLE postac ALTER COLUMN funkcja SET DEFAULT 'brak';
 UPDATE postac SET funkcja = 'kapitan' WHERE id_postaci = 1;
-.//UPDATE postac SET funkcja = 'zalogant' WHERE id_postaci = ?;
-.
+UPDATE postac SET funkcja = 'zalogant' WHERE id_postaci BETWEEN 4 AND 8;
+UPDATE postac SET funkcja = 'brak' WHERE id_postaci BETWEEN 4 AND 8;
+ALTER TABLE postac ADD COLUMN n_statku varchar(40) AFTER wiek;
+ALTER TABLE postac ADD FOREIGN KEY(n_statku) REFERENCES statek(nazwa_statku);
+UPDATE postac SET n_statku = 'Dzik morski' WHERE id_postaci BETWEEN 1 AND 2 OR id_postaci BETWEEN 4 AND 5;
+UPDATE postac SET n_statku = 'Terror Wielkiego Morza' WHERE id_postaci BETWEEN 6 AND 8;
 DELETE
