@@ -1,1 +1,9 @@
+CREATE TABLE kreatura SELECT * FROM wikingowie.kreatura;      // CREATE TABLE kreatura AS SELECT... robi to samo?
+CREATE TABLE zasob SELECT * FROM wikingowie.zasob;
+CREATE TABLE ekwipunek SELECT * FROM wikingowie.ekwipunek;
+SELECT * FROM zasob;
+SELECT * FROM zasob WHERE rodzaj = 'jedzenie';
+SELECT idZasobu, ilosc FROM zasob WHERE idZasobu IN(1, 3, 5);     // alternatywnie SELECT idZasobu, ilosc FROM zasob WHERE idZasobu = 1 OR idZasobu = 3 OR idZasobu = 5;
 
+SELECT * FROM kreatura WHERE rodzaj != 'wiedzma' AND udzwig >= 50;
+SELECT * FROM zasob WHERE waga BETWEEN 2 AND 5;
