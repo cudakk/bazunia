@@ -1,1 +1,6 @@
 SELECT AVG(waga) FROM kreatura WHERE rodzaj = 'wiking';
+SELECT AVG(waga), COUNT(idKreatury), rodzaj FROM kreatura GROUP BY rodzaj;
+SELECT AVG(YEAR(dataUr)), rodzaj FROM kreatura GROUP BY rodzaj;
+// SELECT CONCAT(ROUND((2022 - AVG(YEAR(dataUr))), 0)) AS 'srednia wieku', rodzaj FROM kreatura GROUP BY rodzaj;      (lepsza wersja)
+
+SELECT SUM(waga * ilosc), rodzaj FROM zasob GROUP BY rodzaj;
